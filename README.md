@@ -16,7 +16,7 @@ $ git submodule add https://github.com/bisq-network/bisq-gradle.git
 If you need to use a non-main branch of this repo, use the -b _branch-name_ option:
 
 ```asciidoc
-git submodule add -b add-post-build-task https://github.com/ghubstan/bisq-gradle.git
+git submodule add -b add-post-build-plugin https://github.com/ghubstan/bisq-gradle.git
 ```
 
 This will add 'bisq-gradle' to .gitmodules:
