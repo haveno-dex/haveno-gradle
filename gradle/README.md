@@ -16,12 +16,12 @@ $ ./gradlew wrapper --gradle-version 7.5 \
 
 The first execution should automatically update:
 
-- `bisq-gradle/gradle/wrapper/gradle-wrapper.properties`
+- `haveno-gradle/gradle/wrapper/gradle-wrapper.properties`
 
 The second execution should then update:
 
-- `bisq-gradle/gradle/wrapper/gradle-wrapper.jar`
-- `bisq-gradle/gradlew`
-- `bisq-gradle/gradlew.bat`
+- `haveno-gradle/gradle/wrapper/gradle-wrapper.jar`
+- `haveno-gradle/gradlew`
+- `haveno-gradle/gradlew.bat`
 
 The four updated files are ready to be committed.
