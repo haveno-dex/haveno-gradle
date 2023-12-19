@@ -9,9 +9,9 @@ Visit the [Gradle website](https://gradle.org/releases) and decide the:
 Adjust the following command with tha arguments above and execute it twice:
 
 ```asciidoc
-$ ./gradlew wrapper --gradle-version 8.5 \
+$ ./gradlew wrapper --gradle-version 8.2.1 \
     --distribution-type bin \
-    --gradle-distribution-sha256-sum 9d926787066a081739e8200858338b4a69e837c3a821a33aca9db09dd4a41026
+    --gradle-distribution-sha256-sum 03ec176d388f2aa99defcadc3ac6adf8dd2bce5145a129659537c0874dea5ad1
 ```
 
 The first execution should automatically update:
