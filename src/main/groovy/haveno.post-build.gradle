@@ -20,13 +20,13 @@ plugins {
 
 import static org.gradle.internal.os.OperatingSystem.current
 
-def copyStartScripts = tasks.register('copyStartScripts', Copy) {
+tasks.register('copyStartScripts', Copy) {
     description = "Copies assembled distribution start scripts to root project directory."
     from layout.buildDirectory.dir('scripts')
     into projectDir
 }
 
-def copyDistributionLib = tasks.register('copyDistributionLib', Copy) {
+tasks.register('copyDistributionLib', Copy) {
     description = "Extracts zipped distribution lib directory to root project directory."
     dependsOn 'copyStartScripts', ':distZip'
     def distFolderName = project.name + '-' + version
@@ -41,7 +41,7 @@ def copyDistributionLib = tasks.register('copyDistributionLib', Copy) {
     into "${projectDir}/lib"
 }
 
-def editStartScriptAppHomeVar = tasks.register('editStartScriptAppHomeVar') {
+tasks.register('editStartScriptAppHomeVar', Copy) {
     description = "Edit generated start script so it expects to be executed in project root dir (not the 'bin' dir)."
     dependsOn 'copyStartScripts'
     doLast {
