@@ -28,7 +28,7 @@ def copyStartScripts = tasks.register('copyStartScripts', Copy) {
 
 def copyDistributionLib = tasks.register('copyDistributionLib', Copy) {
     description = "Extracts zipped distribution lib directory to root project directory."
-    dependsOn 'copyStartScripts'
+    dependsOn 'copyStartScripts', ':distZip'
     def distFolderName = project.name + '-' + version
     def distZipName = buildDir.name + '/distributions/' + distFolderName + '.zip'
     from(zipTree(distZipName)) {
@@ -69,5 +69,12 @@ def postBuild = tasks.register('postBuild') {
     dependsOn 'copyStartScripts', 'copyDistributionLib', 'editStartScriptAppHomeVar'
 }
 
-def buildTask = tasks.findByName('build')
+tasks.configureEach {
+    if (name in ['bootDistZip', 'bootDistTar', 'test', 'compileTestJava', 'jar', 'processResources',
+                 'processTestResources', 'compileJava', 'copyDistributionLib']) {
+        dependsOn 'copyStartScripts'
+    }
+}
+
+def buildTask = tasks.named('build')
 buildTask.configure { finalizedBy postBuild }
