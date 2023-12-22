@@ -15,20 +15,21 @@
  * along with Haveno. If not, see <http://www.gnu.org/licenses/>.
  */
 plugins {
-    id 'java-library'
+    id 'java'
 }
 
 import static org.gradle.internal.os.OperatingSystem.current
 
 tasks.register('copyStartScripts', Copy) {
     description = "Copies assembled distribution start scripts to root project directory."
+    dependsOn ':bootDistZip', ':bootDistTar', ':test', ':compileTestJava', ':distTar', ':distZip'
     from layout.buildDirectory.dir('scripts')
     into projectDir
 }
 
 tasks.register('copyDistributionLib', Copy) {
     description = "Extracts zipped distribution lib directory to root project directory."
-    dependsOn 'copyStartScripts', ':distZip'
+    dependsOn 'copyStartScripts'
     def distFolderName = project.name + '-' + version
     def distZipName = buildDir.name + '/distributions/' + distFolderName + '.zip'
     from(zipTree(distZipName)) {
@@ -41,7 +42,7 @@ tasks.register('copyDistributionLib', Copy) {
     into "${projectDir}/lib"
 }
 
-tasks.register('editStartScriptAppHomeVar', Copy) {
+tasks.register('editStartScriptAppHomeVar') {
     description = "Edit generated start script so it expects to be executed in project root dir (not the 'bin' dir)."
     dependsOn 'copyStartScripts'
     doLast {
@@ -64,17 +65,4 @@ tasks.register('editStartScriptAppHomeVar', Copy) {
     }
 }
 
-def postBuild = tasks.register('postBuild') {
-    description = "Makes distribution's start script runnable from project root directory."
-    dependsOn 'copyStartScripts', 'copyDistributionLib', 'editStartScriptAppHomeVar'
-}
-
-tasks.configureEach {
-    if (name in ['bootDistZip', 'bootDistTar', 'test', 'compileTestJava', 'jar', 'processResources',
-                 'processTestResources', 'compileJava', 'copyDistributionLib']) {
-        dependsOn 'copyStartScripts'
-    }
-}
-
-def buildTask = tasks.named('build')
-buildTask.configure { finalizedBy postBuild }
+build.finalizedBy 'copyStartScripts', 'copyDistributionLib', 'editStartScriptAppHomeVar'
