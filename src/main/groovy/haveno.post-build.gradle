@@ -22,7 +22,7 @@ import static org.gradle.internal.os.OperatingSystem.current
 
 tasks.register('copyStartScripts', Copy) {
     description = "Copies assembled distribution start scripts to root project directory."
-    dependsOn ':bootDistZip', ':bootDistTar', ':test', ':compileTestJava', ':distTar', ':distZip'
+    dependsOn ':run', ':bootDistZip', ':bootDistTar', ':test', ':compileTestJava', ':distTar', ':distZip'
     from layout.buildDirectory.dir('scripts')
     into projectDir
 }
