@@ -27,6 +27,8 @@ tasks.register('copyStartScripts', Copy) {
     into projectDir
 }
 
+run.dependsOn copyStartScripts
+
 tasks.register('copyDistributionLib', Copy) {
     description = "Extracts zipped distribution lib directory to root project directory."
     dependsOn 'copyStartScripts'
