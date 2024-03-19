@@ -78,8 +78,8 @@ tasks.register('editStartScriptAppHomeVar') {
             delete fileTree(dir: projectDir, include: "${project.name}.bat")
             // Reset APP_HOME variable in *nix script.
             def nixScriptFile = file("${projectDir}/${project.name}")
-            def oldAppHome = 'APP_HOME=$( cd "${APP_HOME:-./}.." && pwd -P ) || exit'
-            def newAppHome = 'APP_HOME=$( cd "${APP_HOME:-./}" && pwd -P ) || exit'
+            def oldAppHome = 'APP_HOME=$( cd "${APP_HOME:-./}.." > /dev/null && pwd -P ) || exit'
+            def newAppHome = 'APP_HOME=$( cd "${APP_HOME:-./}" > /dev/null && pwd -P ) || exit'
             nixScriptFile.text = nixScriptFile.text.replace(oldAppHome, newAppHome)
         }
     }
